@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Cooking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Kitchen!</h1>
+        <form action="/generate_recipe" method="post" id="recipeForm">
+            <label for="meal_type">Select a meal type:</label>
+            <select name="meal_type" id="meal_type">
+                <option value="Curry">Curry</option>
+                <option value="Rice">Rice</option>
+                <option value="Side Dish">Side Dish</option>
+            </select>
+            <br>
+            <label for="dish_name">Select a dish:</label>
+            <select name="dish_name" id="dish_name">
+                <!-- Dish options will be dynamically populated based on the selected meal type -->
+            </select>
+            <br>
+            <button type="submit">Generate Recipe</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to populate dish names based on the selected meal type
+        function populateDishNames() {
+            var mealType = document.getElementById("meal_type").value;
+            var dishSelect = document.getElementById("dish_name");
+            dishSelect.innerHTML = ""; // Clear existing options
+
+            // Retrieve dish names for the selected meal type
+            var dishNames = [];
+            switch (mealType) {
+                case "Curry":
+                    dishNames = ["Paneer Gravy","Soya Bean Gravy", "Chicken Gravy"];
+                    break;
+                case "Rice":
+                    dishNames = ["Vegetable Biryani", "Chicken Biryani", "Pulao"];
+                    break;
+                case "Side Dish":
+                    dishNames = ["Soya Chunks Fry", "Low-Oil Chicken Tikka"];
+                    break;
+                default:
+                    break;
+            }
+
+            // Add dish options to the select element
+            dishNames.forEach(function(dishName) {
+                var option = document.createElement("option");
+                option.text = dishName;
+                option.value = dishName;
+                dishSelect.add(option);
+            });
+        }
+
+        // Event listener for the meal type select element
+        document.getElementById("meal_type").addEventListener("change", populateDishNames);
+
+        // Call the populateDishNames function initially
+        populateDishNames();
+    </script>
+</body>
+</html>
